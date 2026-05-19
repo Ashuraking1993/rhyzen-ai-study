@@ -1,0 +1,59 @@
+.embers {
+  position: fixed;
+  inset: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+
+  z-index: 999;
+}
+
+.ember {
+  position: absolute;
+
+  bottom: -10%;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,120,0,1) 0%,
+      rgba(255,0,0,0.8) 40%,
+      rgba(255,0,0,0) 80%
+    );
+
+  box-shadow:
+    0 0 8px rgba(255,80,0,0.8),
+    0 0 18px rgba(255,0,0,0.45),
+    0 0 35px rgba(255,120,0,0.2);
+
+  animation: emberFloat linear infinite;
+
+  mix-blend-mode: screen;
+}
+
+@keyframes emberFloat {
+  0% {
+    transform:
+      translateY(0vh)
+      translateX(0px)
+      scale(0.6);
+
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  100% {
+    transform:
+      translateY(-120vh)
+      translateX(80px)
+      scale(1.4);
+
+    opacity: 0;
+  }
+}

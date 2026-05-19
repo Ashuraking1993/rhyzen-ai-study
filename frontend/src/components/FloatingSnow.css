@@ -1,0 +1,52 @@
+.snowflakes {
+  position: fixed;
+  inset: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+
+  z-index: 999;
+}
+
+.snowflake {
+  position: absolute;
+
+  top: -10%;
+
+  color: rgba(255,255,255,0.9);
+
+  text-shadow:
+    0 0 8px rgba(255,255,255,0.8),
+    0 0 18px rgba(255,255,255,0.4);
+
+  animation: snowFall linear infinite;
+
+  user-select: none;
+
+  mix-blend-mode: screen;
+}
+
+@keyframes snowFall {
+  0% {
+    transform:
+      translateY(-10vh)
+      translateX(0px)
+      rotate(0deg);
+
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  100% {
+    transform:
+      translateY(110vh)
+      translateX(80px)
+      rotate(360deg);
+
+    opacity: 0;
+  }
+}

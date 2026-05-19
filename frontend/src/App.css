@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  
+  font-family:'Orbitron', sans-serif;
+  overflow:hidden;
+}
+
+.app {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;  
+}
+.app::before {
+  content: '';
+
+  position: absolute;
+  inset: 0;
+
+
+
+  z-index: 1;
+
+  pointer-events: none;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.overlay{
+  position:absolute;
+
+  width:100%;
+  height:100%;
+  pointer-events:none;
+}
+
+.content{
+  text-align:center;
+  z-index:2;
+   animation: contentFloat 5s ease-in-out infinite;
+}
+
+@keyframes contentFloat {
+  0%,100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+
+.subtitle{
+  color:red;
+  letter-spacing:8px;
+  margin-bottom:20px;
+}
+
+.title {
+  font-size: 6rem;
+  color: white;
+
+  letter-spacing: 4px;
+
+  text-shadow:
+    0 0 5px rgba(255,255,255,0.9),
+    0 0 15px rgba(255,0,0,0.95),
+    0 0 30px rgba(255,0,0,0.75),
+    0 0 60px rgba(255,0,0,0.45),
+    0 0 120px rgba(255,0,0,0.2);
+
+  margin-bottom: 30px;
+
+  animation: titleEnergy 2.5s ease-in-out infinite;
+}
+
+@keyframes titleEnergy {
+  0%,100% {
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.15);
+  }
+}
+
+.description{
+  color:#aaa;
+
+  width:700px;
+  max-width:90%;
+
+  margin:auto;
+
+  line-height:2;
+
+  margin-bottom:40px;
+
+  font-size:1.1rem;
+}
+
+.start-btn {
+  padding: 18px 55px;
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,0,0,0.95),
+      rgba(140,0,0,0.95)
+    );
+
+  color: white;
+
+  font-family: 'Orbitron';
+
+  cursor: pointer;
+
+  border-radius: 14px;
+
+  font-size: 1rem;
+
+  letter-spacing: 2px;
+
+  position: relative;
+  overflow: hidden;
+
+  backdrop-filter: blur(12px);
+
+  transition: all 0.3s ease;
+
+  box-shadow:
+    0 0 20px rgba(255,0,0,0.35),
+    inset 0 0 20px rgba(255,255,255,0.05);
+}
+
+.start-btn:hover {
+  transform:
+    translateY(-4px)
+    scale(1.04);
+
+  box-shadow:
+    0 0 25px rgba(255,0,0,0.9),
+    0 0 60px rgba(255,0,0,0.35);
+
+  filter: brightness(1.1);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.overlay::before {
+  content: '';
+
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    radial-gradient(rgba(255,0,0,0.35) 1px, transparent 1px);
+
+  background-size: 120px 120px;
+
+  opacity: 0.12;
+
+  animation: particlesMove 18s linear infinite;
+}
+
+@keyframes particlesMove {
+  from {
+    transform: translateY(0px);
+  }
+
+  to {
+    transform: translateY(-120px);
+  }
+}
+
+.app::after {
+  content: '';
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.015),
+      rgba(255,255,255,0.015) 1px,
+      transparent 2px,
+      transparent 4px
+    );
+
+  pointer-events: none;
+
+  z-index: 999;
+}
+
+@keyframes systemGlow {
+  0%,100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+
+  50% {
+    transform: scale(1.03);
+    filter: brightness(1.15);
+  }
+}
