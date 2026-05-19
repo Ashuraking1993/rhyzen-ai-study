@@ -12,42 +12,35 @@ function Login() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
 
-  const handleSubmit = async () => {
-    setError('')
-    setSuccess('')
-    if (!email || !password) return setError('Fill in all fields!')
-    setLoading(true)
+ const handleSubmit = async () => {
+  setError('')
+  setSuccess('')
 
-    try {
-      const endpoint = isRegister ? 'register' : 'login'
-      const body = isRegister
-        ? { email, password, name }
-        : { email, password }
-
-      const res = await fetch(`http://localhost:5279/api/auth/${endpoint}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-      })
-
-      const data = await res.json()
-      if (!res.ok) return setError(data.message)
-
-      if (isRegister) {
-        setSuccess('Account created! Please login.')
-        setIsRegister(false)
-      } else {
-        localStorage.setItem('token', data.token)
-        localStorage.setItem('user_name', data.name)
-        localStorage.setItem('user_id', data.userId)
-        navigate('/dashboard')
-      }
-    } catch {
-      setError('Connection error!')
-    } finally {
-      setLoading(false)
-    }
+  if (!email || !password) {
+    return setError('Fill in all fields!')
   }
+
+  setLoading(true)
+
+  try {
+    await new Promise(resolve => setTimeout(resolve, 1200))
+
+    if (isRegister) {
+      setSuccess('Demo account created!')
+      setIsRegister(false)
+    } else {
+      localStorage.setItem('token', 'demo-token')
+      localStorage.setItem('user_name', 'Ashura')
+      localStorage.setItem('user_id', '1')
+
+      navigate('/dashboard')
+    }
+  } catch (err) {
+    setError('Something went wrong!')
+  } finally {
+    setLoading(false)
+  }
+}
 
   return (
     <div className="login-wrapper">
