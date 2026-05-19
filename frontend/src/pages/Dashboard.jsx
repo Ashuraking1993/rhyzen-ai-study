@@ -21,15 +21,30 @@ function Dashboard() {
         if (userId > 0) fetchSessions()
       }, [])
 
-      const fetchSessions = async () => {
-        try {
-          const res = await fetch(`http://localhost:5279/api/ai/sessions/${userId}`)
-          const data = await res.json()
-          setHistory(data)
-        } catch (err) {
-          console.error(err)
-        }
+      const fetchSessions = () => {
+    const demoSessions = [
+      {
+        id: 1,
+        type: 'Flashcards',
+        title: 'French Revolution Flashcards',
+        date: 'May 19, 2026'
+      },
+      {
+        id: 2,
+        type: 'Quiz',
+        title: 'Solar System Quiz',
+        date: 'May 19, 2026'
+      },
+      {
+        id: 3,
+        type: 'Summary',
+        title: 'World War II Summary',
+        date: 'May 18, 2026'
       }
+    ]
+
+  setHistory(demoSessions)
+}
 
   const navItems = [
     { id: 'dashboard', label: 'DASHBOARD', icon: '⊞' },
@@ -38,36 +53,79 @@ function Dashboard() {
     { id: 'history', label: 'HISTORY', icon: '◷' },
   ]
 
- const handleGenerate = async (type) => {
-  
-  if (!notes.trim()) return alert('Please input some notes first!')
+const handleGenerate = async (type) => {
+
+  if (!notes.trim()) {
+    return alert('Please input some notes first!')
+  }
+
   setLoading(true)
   setResult(null)
+
   try {
-    const response = await fetch('http://localhost:5279/api/ai/generate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ notes, type, userId })
-    })
-    const data = await response.json()
+    await new Promise(resolve => setTimeout(resolve, 1800))
 
     if (type === 'Flashcards') {
-      localStorage.setItem('flashcards_data', data.result)
+
+      const fakeFlashcards = [
+        {
+          question: 'What caused the French Revolution?',
+          answer: 'Social inequality and financial crisis.'
+        },
+        {
+          question: 'Who led the Reign of Terror?',
+          answer: 'Maximilien Robespierre.'
+        },
+        {
+          question: 'What was the Bastille?',
+          answer: 'A prison attacked during the revolution.'
+        }
+      ]
+
+      localStorage.setItem(
+        'flashcards_data',
+        JSON.stringify(fakeFlashcards)
+      )
+
       navigate('/flashcards')
       return
     }
 
     if (type === 'Quiz') {
-      localStorage.setItem('quiz_data', data.result)
+
+      const fakeQuiz = [
+        {
+          question: 'Which planet is the largest?',
+          choices: ['Earth', 'Mars', 'Jupiter', 'Venus'],
+          answer: 'Jupiter'
+        },
+        {
+          question: 'Who discovered gravity?',
+          choices: ['Newton', 'Einstein', 'Tesla', 'Darwin'],
+          answer: 'Newton'
+        }
+      ]
+
+      localStorage.setItem(
+        'quiz_data',
+        JSON.stringify(fakeQuiz)
+      )
+
       navigate('/quiz')
       return
     }
 
-    setResult({ text: data.result, type: data.type })
-    await fetchSessions()
+    setResult({
+      type: 'Summary',
+      text:
+        'The French Revolution was a major political and social upheaval caused by inequality, economic hardship, and revolutionary ideals.'
+    })
+
+    fetchSessions()
+
   } catch (err) {
     console.error(err)
-    alert('Backend connection error!')
+    alert('Demo mode error!')
   } finally {
     setLoading(false)
   }
